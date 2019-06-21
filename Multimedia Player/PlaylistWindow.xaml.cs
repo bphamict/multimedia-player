@@ -93,5 +93,19 @@ namespace Multimedia_Player
 
             Playlist_DataGrid.Items.Refresh();
         }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            PlayList.Remove((MainWindow.PlayList)Playlist_DataGrid.SelectedItem);
+
+            Playlist_DataGrid.Items.Refresh();
+        }
+
+        private void DeleteAll_Click(object sender, RoutedEventArgs e)
+        {
+            PlayList.Clear();
+
+            Playlist_DataGrid.Items.Refresh();
+        }
     }
 }

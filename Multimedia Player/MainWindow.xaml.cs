@@ -119,20 +119,7 @@ namespace Multimedia_Player
 
         private void Media_Ended(object sender, RoutedEventArgs e)
         {
-            if (repeat)
-            {
-                Media_Player.Position = TimeSpan.Zero;
-                Media_Player.Play();
-                Seek_Bar.Value = 0;
-            }
-            else if (random)
-            {
-
-            }
-            else
-            {
-                Next_Btn_Click(this, new RoutedEventArgs());
-            }
+            Next_Btn_Click(this, new RoutedEventArgs());
         }
 
         private void Seek_Bar_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
@@ -164,7 +151,7 @@ namespace Multimedia_Player
                     _playList.Add(new PlayList() { Name = System.IO.Path.GetFileNameWithoutExtension(path), Path = path });
                 }
 
-                if (_playList.Count == 1) { Play_Media(_playList[0].Path); }
+                Play_Media(_playList[0].Path);
             }
         }
 
@@ -202,27 +189,71 @@ namespace Multimedia_Player
 
         private void Prev_Btn_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentFileIndex > 0)
+            Media_Player.Position = TimeSpan.Zero;
+            Seek_Bar.Value = 0;
+
+            if (repeat)
             {
-                _currentFileIndex--;
+                Media_Player.Play();
+            }
+            else if (random)
+            {
+                Random random = new Random();
+                _currentFileIndex = random.Next(0, _playList.Count);
+
+                Play_Media(_playList[_currentFileIndex].Path);
+            }
+            else if (!repeat && _currentFileIndex == _playList.Count - 1)
+            {
+                _currentFileIndex = 0;
                 Play_Media(_playList[_currentFileIndex].Path);
             }
             else
             {
-                MessageBox.Show("You are playing the first file");
+                if (_currentFileIndex > 0)
+                {
+                    _currentFileIndex--;
+                    Play_Media(_playList[_currentFileIndex].Path);
+                }
+                else
+                {
+                    MessageBox.Show("You are playing the first file");
+                }
             }
         }
 
         private void Next_Btn_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentFileIndex < _playList.Count - 1)
+            Media_Player.Position = TimeSpan.Zero;
+            Seek_Bar.Value = 0;
+
+            if (repeat)
             {
-                _currentFileIndex++;
+                Media_Player.Play();
+            }
+            else if (random)
+            {
+                Random random = new Random();
+                _currentFileIndex = random.Next(0, _playList.Count);
+
+                Play_Media(_playList[_currentFileIndex].Path);
+            }
+            else if (!repeat && _currentFileIndex == _playList.Count - 1)
+            {
+                _currentFileIndex = 0;
                 Play_Media(_playList[_currentFileIndex].Path);
             }
             else
             {
-                MessageBox.Show("You are playing the last file");
+                if (_currentFileIndex < _playList.Count - 1)
+                {
+                    _currentFileIndex++;
+                    Play_Media(_playList[_currentFileIndex].Path);
+                }
+                else
+                {
+                    MessageBox.Show("You are playing the last file");
+                }
             }
         }
 
@@ -243,8 +274,12 @@ namespace Multimedia_Player
 
         private void Playlist_Btn_Click(object sender, RoutedEventArgs e)
         {
+            _playList[_currentFileIndex].Status = "playing";
+
             var screen = new PlaylistWindow(_playList);
             screen.ShowDialog();
+
+            _playList[_currentFileIndex].Status = "";
         }
     }
 }
