@@ -1,17 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Multimedia_Player
 {
@@ -30,12 +19,19 @@ namespace Multimedia_Player
             timer.Stop();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
+
+            _playList = new List<PlayList>();
         }
 
-        //private MediaPlayer mediaPlayer = new MediaPlayer();
+        public class PlayList
+        {
+            public string Status { get; set; }
+            public string Name { get; set; }
+            public string Path { get; set; }
+        }
 
         // List save opened files
-        private List<string> _playList = null;
+        private List<PlayList> _playList = null;
 
         // Save index of file is playing
         private int _currentFileIndex = 0;
@@ -98,8 +94,7 @@ namespace Multimedia_Player
 
         void timer_Tick(object sender, EventArgs e)
         {
-            if (!_isDragging)
-                Seek_Bar.Value = Media_Player.Position.TotalSeconds;
+            if (!_isDragging) { Seek_Bar.Value = Media_Player.Position.TotalSeconds; }
 
             Time_Status.Text = String.Format($"{Media_Player.Position.ToString(@"mm\:ss")} / {Media_Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss")}");
         }
@@ -110,11 +105,13 @@ namespace Multimedia_Player
             Media_Player.Play();
             Current_File_Name.Text = System.IO.Path.GetFileNameWithoutExtension(path);
             playing = true;
+            Seek_Bar.Value = 0;
         }
 
         private void Media_Opened(object sender, RoutedEventArgs e)
         {
             Seek_Bar.IsEnabled = true;
+            Seek_Bar.Value = 0;
             Seek_Bar.Maximum = Media_Player.NaturalDuration.TimeSpan.TotalSeconds;
 
             timer.Start();
@@ -126,6 +123,7 @@ namespace Multimedia_Player
             {
                 Media_Player.Position = TimeSpan.Zero;
                 Media_Player.Play();
+                Seek_Bar.Value = 0;
             }
             else if (random)
             {
@@ -159,16 +157,14 @@ namespace Multimedia_Player
 
             if (dialog.ShowDialog() == true)
             {
-                _playList = new List<string>();
+                var paths = dialog.FileNames;
 
-                var files = dialog.FileNames;
-
-                foreach (string file in files)
+                foreach (string path in paths)
                 {
-                    _playList.Add(file);
+                    _playList.Add(new PlayList() { Name = System.IO.Path.GetFileNameWithoutExtension(path), Path = path });
                 }
 
-                Play_Media(_playList[0]);
+                if (_playList.Count == 1) { Play_Media(_playList[0].Path); }
             }
         }
 
@@ -183,14 +179,18 @@ namespace Multimedia_Player
             {
                 Media_Player.Play();
                 playing = true;
+                timer.Start();
+                Seek_Bar.IsEnabled = true;
             }
         }
 
         private void Stop_Btn_Click(object sender, RoutedEventArgs e)
         {
+            Media_Player.Position = TimeSpan.Zero;
             Media_Player.Stop();
             playing = false;
             timer.Stop();
+            Seek_Bar.Value = 0;
             Seek_Bar.IsEnabled = false;
         }
 
@@ -205,7 +205,7 @@ namespace Multimedia_Player
             if (_currentFileIndex > 0)
             {
                 _currentFileIndex--;
-                Play_Media(_playList[_currentFileIndex]);
+                Play_Media(_playList[_currentFileIndex].Path);
             }
             else
             {
@@ -218,7 +218,7 @@ namespace Multimedia_Player
             if (_currentFileIndex < _playList.Count - 1)
             {
                 _currentFileIndex++;
-                Play_Media(_playList[_currentFileIndex]);
+                Play_Media(_playList[_currentFileIndex].Path);
             }
             else
             {
@@ -239,6 +239,12 @@ namespace Multimedia_Player
         private void Homepage_Btn_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/bphamict");
+        }
+
+        private void Playlist_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new PlaylistWindow(_playList);
+            screen.ShowDialog();
         }
     }
 }

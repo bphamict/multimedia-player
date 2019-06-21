@@ -55,7 +55,7 @@
             </StatusBarItem>
         </StatusBar>
         <StackPanel>
-            <StackPanel Background="LightGray">
+            <StackPanel Background="Black">
                 <MediaElement Width="500" Height="270" Name="Media_Player" LoadedBehavior="Manual" MediaOpened="Media_Opened" MediaEnded="Media_Ended"/>
             </StackPanel>
             <Slider Margin="5 5 5 10" IsEnabled="False" Name="Seek_Bar" Thumb.DragStarted="Seek_Bar_DragStarted" Thumb.DragCompleted="Seek_Bar_DragCompleted"/>
@@ -66,7 +66,7 @@
                 <Button Width="60" Height="30" Content="Next" Margin="0 0 5 0" ToolTip="Fn + F12" Click="Next_Btn_Click"/>
                 <Button Width="60" Height="30" Content="Stop" Margin="0 0 5 0" Click="Stop_Btn_Click"/>
                 <Button Width="60" Height="30" Content="Repeat" Margin="0 0 5 0" Click="Repeat_Btn_Click"/>
-                <Button Width="60" Height="30" Content="List"/>
+                <Button Width="60" Height="30" Content="Playlist" Click="Playlist_Btn_Click"/>
             </StackPanel>
         </StackPanel>
     </DockPanel>
