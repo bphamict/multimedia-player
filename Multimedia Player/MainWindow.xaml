@@ -15,7 +15,7 @@
                 <MenuItem Header="_Exit" Click="Exit_Click" InputGestureText="Ctrl + E"/>
             </MenuItem>
             <MenuItem Header="_View">
-                <MenuItem Click="Playlist_Btn_Click" Header="_Playlist" Name="Playlist_Btn_Menu" IsEnabled="False"/>
+                <MenuItem Click="Playlist_Btn_Click" Header="_Playlist"/>
             </MenuItem>
             <MenuItem Header="_Play">
                 <MenuItem Header="_Random" IsCheckable="True" Name="Random" Click="Random_Btn_Click" InputGestureText="Ctrl + 1"/>
@@ -75,7 +75,7 @@
                 <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 6" Click="Repeat_Btn_Click" Name="Repeat_Btn">
                     <Image Source="Resources/repeat.png" Width="22"/>
                 </Button>
-                <Button Width="50" Height="30" Click="Playlist_Btn_Click" Name="Playlist_Btn" IsEnabled="False">
+                <Button Width="50" Height="30" Click="Playlist_Btn_Click">
                     <Image Source="Resources/list.png" Width="20"/>
                 </Button>
             </StackPanel>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
 using Gma.System.MouseKeyHook;
-using MessageBox = System.Windows.MessageBox;
 
 namespace Multimedia_Player
 {
@@ -94,10 +93,11 @@ namespace Multimedia_Player
         // Dragging slider
         private bool _isDragging = false;
 
+        // Random generate to random track
+        private Random _rng = new Random();
+
         // Status play or pause file
         private bool _playing = false;
-
-        private Random rng = new Random();
 
         private bool playing
         {
@@ -124,7 +124,15 @@ namespace Multimedia_Player
                 _random = value;
 
                 if (_random)
+                {
+                    Prev_Btn.IsEnabled = true;
+                    Prev_Btn_Menu.IsEnabled = true;
+
+                    Next_Btn.IsEnabled = true;
+                    Next_Btn_Menu.IsEnabled = true;
+
                     Random.IsChecked = true;
+                }
                 else
                     Random.IsChecked = false;
             }
@@ -141,7 +149,15 @@ namespace Multimedia_Player
                 _repeat = value;
 
                 if (_repeat)
+                {
+                    Prev_Btn.IsEnabled = true;
+                    Prev_Btn_Menu.IsEnabled = true;
+
+                    Next_Btn.IsEnabled = true;
+                    Next_Btn_Menu.IsEnabled = true;
+
                     Repeat.IsChecked = true;
+                }
                 else
                     Repeat.IsChecked = false;
             }
@@ -223,13 +239,16 @@ namespace Multimedia_Player
                 Stop_Btn.IsEnabled = true;
                 Stop_Btn_Menu.IsEnabled = true;
 
-                Playlist_Btn.IsEnabled = true;
-                Playlist_Btn_Menu.IsEnabled = true;
-
                 if (_playList.Count == 1) { Next_Btn.IsEnabled = false; Next_Btn_Menu.IsEnabled = false; }
                 else { Next_Btn.IsEnabled = true; Next_Btn_Menu.IsEnabled = true; }
 
             }
+        }
+
+        private void About_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new AboutWindow();
+            screen.ShowDialog();
         }
 
         private void Play_Btn_Click(object sender, RoutedEventArgs e)
@@ -250,33 +269,17 @@ namespace Multimedia_Player
             }
         }
 
-        private void Stop_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            Media_Player.Position = TimeSpan.Zero;
-            Media_Player.Stop();
-            playing = false;
-            timer.Stop();
-            Seek_Bar.Value = 0;
-            Seek_Bar.IsEnabled = false;
-        }
-
-        private void About_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            var screen = new AboutWindow();
-            screen.ShowDialog();
-        }
-
         private void Prev_Btn_Click(object sender, RoutedEventArgs e)
         {
-            if (repeat)
+            if (repeat && _currentFileIndex == 0)
             {
-                Media_Player.Position = TimeSpan.Zero;
-                Media_Player.Play();
-                Seek_Bar.Value = 0;
+                _currentFileIndex = _playList.Count - 1;
+
+                Play_Media(_playList[_currentFileIndex].Path);
             }
             else if (random)
             {
-                _currentFileIndex = rng.Next(0, _playList.Count);
+                _currentFileIndex = _rng.Next(0, _playList.Count);
 
                 Play_Media(_playList[_currentFileIndex].Path);
             }
@@ -290,22 +293,22 @@ namespace Multimedia_Player
                     Next_Btn.IsEnabled = true;
                     Next_Btn_Menu.IsEnabled = true;
 
-                    if (_currentFileIndex == 0) { Prev_Btn.IsEnabled = false; Prev_Btn_Menu.IsEnabled = false; }
+                    if (_currentFileIndex == 0 && !repeat && !random) { Prev_Btn.IsEnabled = false; Prev_Btn_Menu.IsEnabled = false; }
                 }
             }
         }
 
         private void Next_Btn_Click(object sender, RoutedEventArgs e)
         {
-            if (repeat)
+            if (repeat && _currentFileIndex == _playList.Count - 1)
             {
-                Media_Player.Position = TimeSpan.Zero;
-                Media_Player.Play();
-                Seek_Bar.Value = 0;
+                _currentFileIndex = 0;
+
+                Play_Media(_playList[_currentFileIndex].Path);
             }
             else if (random)
             {
-                _currentFileIndex = rng.Next(0, _playList.Count);
+                _currentFileIndex = _rng.Next(0, _playList.Count);
 
                 Play_Media(_playList[_currentFileIndex].Path);
             }
@@ -319,9 +322,19 @@ namespace Multimedia_Player
                     Prev_Btn.IsEnabled = true;
                     Prev_Btn_Menu.IsEnabled = true;
 
-                    if (_currentFileIndex == _playList.Count - 1) { Next_Btn.IsEnabled = false; Next_Btn_Menu.IsEnabled = false; }
+                    if (_currentFileIndex == _playList.Count - 1 && !repeat && !random) { Next_Btn.IsEnabled = false; Next_Btn_Menu.IsEnabled = false; }
                 }
             }
+        }
+
+        private void Stop_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            Media_Player.Position = TimeSpan.Zero;
+            Media_Player.Stop();
+            playing = false;
+            timer.Stop();
+            Seek_Bar.Value = 0;
+            Seek_Bar.IsEnabled = false;
         }
 
         private void Random_Btn_Click(object sender, RoutedEventArgs e)
@@ -336,7 +349,7 @@ namespace Multimedia_Player
 
         private void Playlist_Btn_Click(object sender, RoutedEventArgs e)
         {
-            _playList[_currentFileIndex].Status = "playing";
+            if (_playList.Count != 0) { _playList[_currentFileIndex].Status = "playing"; }
 
             var screen = new PlaylistWindow(_playList);
 
@@ -350,13 +363,19 @@ namespace Multimedia_Player
                         _playList[i].Status = "";
                         Play_Media(_playList[_currentFileIndex].Path);
 
+                        Play_Btn.IsEnabled = true;
+                        Play_Btn_Menu.IsEnabled = true;
+
+                        Stop_Btn.IsEnabled = true;
+                        Stop_Btn_Menu.IsEnabled = true;
+
                         if (_playList.Count == 1) { Next_Btn.IsEnabled = false; Next_Btn_Menu.IsEnabled = false; }
                         else { Next_Btn.IsEnabled = true; Next_Btn_Menu.IsEnabled = true; }
                     }
                 }
             }
 
-            _playList[_currentFileIndex].Status = "";
+            if (_playList.Count != 0) { _playList[_currentFileIndex].Status = ""; }
         }
 
         private void Homepage_Btn_Click(object sender, RoutedEventArgs e)
