@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\dell\source\repos\Multimedia Player\Multimedia Player\obj\Debug\
+C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\
 Multimedia_Player
 none
 false
 DEBUG;TRACE
-C:\Users\dell\source\repos\Multimedia Player\Multimedia Player\App.xaml
+C:\Users\dell\source\repos\multimedia-player\Multimedia Player\App.xaml
 3-1945015532
 
 8-655281028
-13-1505183044
+15-1160077649
 AboutWindow.xaml;MainWindow.xaml;PlaylistWindow.xaml;
 
-True
+False
 

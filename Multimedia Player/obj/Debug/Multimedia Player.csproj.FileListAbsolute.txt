@@ -17,22 +17,3 @@ C:\Users\dell\source\repos\Multimedia Player\Multimedia Player\obj\Debug\Multime
 C:\Users\dell\source\repos\Multimedia Player\Multimedia Player\obj\Debug\Multimedia Player.csproj.CoreCompileInputs.cache
 C:\Users\dell\source\repos\Multimedia Player\Multimedia Player\obj\Debug\Multimedia Player.exe
 C:\Users\dell\source\repos\Multimedia Player\Multimedia Player\obj\Debug\Multimedia Player.pdb
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\bin\Debug\Multimedia Player.exe.config
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\bin\Debug\Multimedia Player.exe
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\bin\Debug\Multimedia Player.pdb
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\Multimedia Player.csprojAssemblyReference.cache
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\AboutWindow.g.cs
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\MainWindow.g.cs
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\PlaylistWindow.g.cs
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\App.g.cs
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\Multimedia Player_MarkupCompile.cache
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\Multimedia Player_MarkupCompile.lref
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\AboutWindow.baml
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\MainWindow.baml
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\PlaylistWindow.baml
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\Multimedia Player.g.resources
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\Multimedia_Player.Properties.Resources.resources
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\Multimedia Player.csproj.GenerateResource.cache
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\Multimedia Player.csproj.CoreCompileInputs.cache
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\Multimedia Player.exe
-C:\Users\dell\source\repos\multimedia-player\Multimedia Player\obj\Debug\Multimedia Player.pdb

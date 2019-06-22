@@ -5,30 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Multimedia_Player"
         mc:Ignorable="d"
-        Title="Multimedia Player" Height="430" Width="500"
-        Loaded="Window_Loaded">
+        Title="Multimedia Player" Height="550" Width="700"
+        Loaded="Window_Loaded" Closed="Window_Closed">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open" Click="Open_Click"/>
-                <MenuItem Header="_Import playlist"/>
-                <MenuItem Header="_Export playlist"/>
+                <MenuItem Header="_Open" Click="Open_Click" InputGestureText="Ctrl + O"/>
                 <Separator/>
-                <MenuItem Header="_Exit"/>
+                <MenuItem Header="_Exit" Click="Exit_Click" InputGestureText="Ctrl + E"/>
             </MenuItem>
             <MenuItem Header="_View">
-                <MenuItem Header="_Full screen"/>
-                <MenuItem Header="_Playlist"/>
+                <MenuItem Click="Playlist_Btn_Click" Header="_Playlist"/>
             </MenuItem>
             <MenuItem Header="_Play">
-                <MenuItem Header="_Play/Pause"/>
-                <MenuItem Header="_Stop"/>
-                <MenuItem Header="_Random" IsCheckable="True" Name="Random"/>
-                <MenuItem Header="_Repeat" IsCheckable="True" Name="Repeat"/>
+                <MenuItem Header="_Random" IsCheckable="True" Name="Random" Click="Random_Btn_Click" InputGestureText="Ctrl + 1"/>
+                <MenuItem Header="_Play/Pause" Click="Play_Btn_Click" InputGestureText="Ctrl + 3"/>
+                <MenuItem Header="_Stop" Click="Stop_Btn_Click" InputGestureText="Ctrl + 5"/>
+                <MenuItem Header="_Repeat" IsCheckable="True" Name="Repeat" Click="Repeat_Btn_Click" InputGestureText="Ctrl + 6"/>
             </MenuItem>
             <MenuItem Header="_Navigate">
-                <MenuItem Header="_Previous"/>
-                <MenuItem Header="_Next"/>
+                <MenuItem Header="_Previous" Click="Prev_Btn_Click" InputGestureText="Ctrl + 2"/>
+                <MenuItem Header="_Next" Click="Next_Btn_Click" InputGestureText="Ctrl + 4"/>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_Homepage" Click="Homepage_Btn_Click"/>
@@ -47,7 +44,7 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <TextBlock FontWeight="Bold">Current File:</TextBlock>
+                <TextBlock FontWeight="Bold">Playing:</TextBlock>
                 <TextBlock Name="Current_File_Name" Margin="5 0 5 0"/>
             </StackPanel>
             <StatusBarItem Grid.Column="2">
@@ -56,17 +53,31 @@
         </StatusBar>
         <StackPanel>
             <StackPanel Background="Black">
-                <MediaElement Width="500" Height="270" Name="Media_Player" LoadedBehavior="Manual" MediaOpened="Media_Opened" MediaEnded="Media_Ended"/>
+                <MediaElement Width="700" Height="390" Name="Media_Player" LoadedBehavior="Manual" MediaOpened="Media_Opened" MediaEnded="Media_Ended"/>
             </StackPanel>
             <Slider Margin="5 5 5 10" IsEnabled="False" Name="Seek_Bar" Thumb.DragStarted="Seek_Bar_DragStarted" Thumb.DragCompleted="Seek_Bar_DragCompleted"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Width="60" Height="30" Content="Random" Margin="0 0 5 0" Click="Random_Btn_Click"/>
-                <Button Width="60" Height="30" Content="Prev" Margin="0 0 5 0" ToolTip="Fn + F10" Click="Prev_Btn_Click"/>
-                <Button Width="60" Height="30" Content="Play" Margin="0 0 5 0" ToolTip="Fn + F11" Click="Play_Btn_Click" Name="Play_Btn"/>
-                <Button Width="60" Height="30" Content="Next" Margin="0 0 5 0" ToolTip="Fn + F12" Click="Next_Btn_Click"/>
-                <Button Width="60" Height="30" Content="Stop" Margin="0 0 5 0" Click="Stop_Btn_Click"/>
-                <Button Width="60" Height="30" Content="Repeat" Margin="0 0 5 0" Click="Repeat_Btn_Click"/>
-                <Button Width="60" Height="30" Content="Playlist" Click="Playlist_Btn_Click"/>
+                <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 1" Click="Random_Btn_Click" Name="Random_Btn" IsEnabled="False">
+                    <Image Source="Resources/shuffle.png" Width="22"/>
+                </Button>
+                <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 2" Click="Prev_Btn_Click" Name="Prev_Btn" IsEnabled="False">
+                    <Image Source="Resources/previous.png" Width="20"/>
+                </Button>
+                <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 3" Click="Play_Btn_Click" Name="Play_Btn" IsEnabled="False">
+                    <Image Source="Resources/play.png" Width="20" Name="Play_Image"/>
+                </Button>
+                <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 4" Click="Next_Btn_Click" Name="Next_Btn" IsEnabled="False">
+                    <Image Source="Resources/skip.png" Width="20"/>
+                </Button>
+                <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 5" Click="Stop_Btn_Click" Name="Stop_Btn" IsEnabled="False">
+                    <Image Source="Resources/stop.png" Width="18"/>
+                </Button>
+                <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 6" Click="Repeat_Btn_Click" Name="Repeat_Btn" IsEnabled="False">
+                    <Image Source="Resources/repeat.png" Width="22"/>
+                </Button>
+                <Button Width="50" Height="30" Click="Playlist_Btn_Click" Name="Playlist_Btn" IsEnabled="False">
+                    <Image Source="Resources/list.png" Width="20"/>
+                </Button>
             </StackPanel>
         </StackPanel>
     </DockPanel>
