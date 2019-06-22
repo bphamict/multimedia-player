@@ -96,7 +96,11 @@ namespace Multimedia_Player
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            PlayList.Remove((MainWindow.PlayList)Playlist_DataGrid.SelectedItem);
+            var t = (MainWindow.PlayList)Playlist_DataGrid.SelectedItem;
+
+            if (t.Status == "playing") { MessageBox.Show("File is playing, can't delete!"); return; }
+
+            PlayList.Remove(t);
 
             Playlist_DataGrid.Items.Refresh();
         }
