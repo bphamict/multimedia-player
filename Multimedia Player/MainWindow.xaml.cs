@@ -56,13 +56,13 @@ namespace Multimedia_Player
             {
                 Play_Btn_Click(this, new RoutedEventArgs());
             }
-            else if (e.Control && (e.KeyCode == Keys.D4))   // next
-            {
-                Next_Btn_Click(this, new RoutedEventArgs());
-            }
-            else if (e.Control && (e.KeyCode == Keys.D5))   // stop
+            else if (e.Control && (e.KeyCode == Keys.D4))   // stop
             {
                 Stop_Btn_Click(this, new RoutedEventArgs());
+            }
+            else if (e.Control && (e.KeyCode == Keys.D5))   // next
+            {
+                Next_Btn_Click(this, new RoutedEventArgs());
             }
             else if (e.Control && (e.KeyCode == Keys.D6))   // repeat
             {
@@ -284,7 +284,7 @@ namespace Multimedia_Player
 
                     Next_Btn.IsEnabled = true;
 
-                    if (_currentFileIndex == _playList.Count - 1) { Prev_Btn.IsEnabled = false; }
+                    if (_currentFileIndex == 0) { Prev_Btn.IsEnabled = false; }
                 }
             }
         }

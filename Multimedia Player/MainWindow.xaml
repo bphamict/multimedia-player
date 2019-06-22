@@ -20,12 +20,12 @@
             <MenuItem Header="_Play">
                 <MenuItem Header="_Random" IsCheckable="True" Name="Random" Click="Random_Btn_Click" InputGestureText="Ctrl + 1"/>
                 <MenuItem Header="_Play/Pause" Click="Play_Btn_Click" InputGestureText="Ctrl + 3"/>
-                <MenuItem Header="_Stop" Click="Stop_Btn_Click" InputGestureText="Ctrl + 5"/>
+                <MenuItem Header="_Stop" Click="Stop_Btn_Click" InputGestureText="Ctrl + 4"/>
                 <MenuItem Header="_Repeat" IsCheckable="True" Name="Repeat" Click="Repeat_Btn_Click" InputGestureText="Ctrl + 6"/>
             </MenuItem>
             <MenuItem Header="_Navigate">
                 <MenuItem Header="_Previous" Click="Prev_Btn_Click" InputGestureText="Ctrl + 2"/>
-                <MenuItem Header="_Next" Click="Next_Btn_Click" InputGestureText="Ctrl + 4"/>
+                <MenuItem Header="_Next" Click="Next_Btn_Click" InputGestureText="Ctrl + 5"/>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_Homepage" Click="Homepage_Btn_Click"/>
@@ -66,11 +66,11 @@
                 <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 3" Click="Play_Btn_Click" Name="Play_Btn" IsEnabled="False">
                     <Image Source="Resources/play.png" Width="20" Name="Play_Image"/>
                 </Button>
-                <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 4" Click="Next_Btn_Click" Name="Next_Btn" IsEnabled="False">
-                    <Image Source="Resources/skip.png" Width="20"/>
-                </Button>
-                <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 5" Click="Stop_Btn_Click" Name="Stop_Btn" IsEnabled="False">
+                <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 4" Click="Stop_Btn_Click" Name="Stop_Btn" IsEnabled="False">
                     <Image Source="Resources/stop.png" Width="18"/>
+                </Button>
+                <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 5" Click="Next_Btn_Click" Name="Next_Btn" IsEnabled="False">
+                    <Image Source="Resources/skip.png" Width="20"/>
                 </Button>
                 <Button Width="50" Height="30" Margin="0 0 10 0" ToolTip="Ctrl + 6" Click="Repeat_Btn_Click" Name="Repeat_Btn" IsEnabled="False">
                     <Image Source="Resources/repeat.png" Width="22"/>
