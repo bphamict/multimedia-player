@@ -56,13 +56,13 @@ namespace Multimedia_Player
             {
                 Play_Btn_Click(this, new RoutedEventArgs());
             }
-            else if (e.Control && (e.KeyCode == Keys.D4))   // stop
-            {
-                Stop_Btn_Click(this, new RoutedEventArgs());
-            }
-            else if (e.Control && (e.KeyCode == Keys.D5))   // next
+            else if (e.Control && (e.KeyCode == Keys.D4))   // next
             {
                 Next_Btn_Click(this, new RoutedEventArgs());
+            }
+            else if (e.Control && (e.KeyCode == Keys.D5))   // stop
+            {
+                Stop_Btn_Click(this, new RoutedEventArgs());
             }
             else if (e.Control && (e.KeyCode == Keys.D6))   // repeat
             {
@@ -209,21 +209,26 @@ namespace Multimedia_Player
 
                 foreach (string path in paths)
                 {
-                    _playList.Add(new PlayList() { Name = System.IO.Path.GetFileNameWithoutExtension(path), Path = path });
+                    _playList.Add(new PlayList() { Status = "", Name = System.IO.Path.GetFileNameWithoutExtension(path), Path = path });
                 }
 
                 Play_Media(_playList[0].Path);
-                Prev_Btn.IsEnabled = false;
-                Random_Btn.IsEnabled = true;
-                Play_Btn.IsEnabled = true;
-                Stop_Btn.IsEnabled = true;
-                Repeat_Btn.IsEnabled = true;
-                Playlist_Btn.IsEnabled = true;
 
-                if (_playList.Count == 1)
-                    Next_Btn.IsEnabled = false;
-                else
-                    Next_Btn.IsEnabled = true;
+                Prev_Btn.IsEnabled = false;
+                Prev_Btn_Menu.IsEnabled = false;
+
+                Play_Btn.IsEnabled = true;
+                Play_Btn_Menu.IsEnabled = true;
+
+                Stop_Btn.IsEnabled = true;
+                Stop_Btn_Menu.IsEnabled = true;
+
+                Playlist_Btn.IsEnabled = true;
+                Playlist_Btn_Menu.IsEnabled = true;
+
+                if (_playList.Count == 1) { Next_Btn.IsEnabled = false; Next_Btn_Menu.IsEnabled = false; }
+                else { Next_Btn.IsEnabled = true; Next_Btn_Menu.IsEnabled = true; }
+
             }
         }
 
@@ -283,8 +288,9 @@ namespace Multimedia_Player
                     Play_Media(_playList[_currentFileIndex].Path);
 
                     Next_Btn.IsEnabled = true;
+                    Next_Btn_Menu.IsEnabled = true;
 
-                    if (_currentFileIndex == 0) { Prev_Btn.IsEnabled = false; }
+                    if (_currentFileIndex == 0) { Prev_Btn.IsEnabled = false; Prev_Btn_Menu.IsEnabled = false; }
                 }
             }
         }
@@ -311,8 +317,9 @@ namespace Multimedia_Player
                     Play_Media(_playList[_currentFileIndex].Path);
 
                     Prev_Btn.IsEnabled = true;
+                    Prev_Btn_Menu.IsEnabled = true;
 
-                    if (_currentFileIndex == _playList.Count - 1) { Next_Btn.IsEnabled = false; }
+                    if (_currentFileIndex == _playList.Count - 1) { Next_Btn.IsEnabled = false; Next_Btn_Menu.IsEnabled = false; }
                 }
             }
         }
@@ -332,7 +339,22 @@ namespace Multimedia_Player
             _playList[_currentFileIndex].Status = "playing";
 
             var screen = new PlaylistWindow(_playList);
-            screen.ShowDialog();
+
+            if (screen.ShowDialog() == true)
+            {
+                for (int i = 0; i < _playList.Count; i++)
+                {
+                    if (_playList[i].Status == "playing")
+                    {
+                        _currentFileIndex = i;
+                        _playList[i].Status = "";
+                        Play_Media(_playList[_currentFileIndex].Path);
+
+                        if (_playList.Count == 1) { Next_Btn.IsEnabled = false; Next_Btn_Menu.IsEnabled = false; }
+                        else { Next_Btn.IsEnabled = true; Next_Btn_Menu.IsEnabled = true; }
+                    }
+                }
+            }
 
             _playList[_currentFileIndex].Status = "";
         }
